@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase Auth and Access"
+  short_description: "Implement PocketBase auth flows and access rules"
+  default_prompt: "Implement secure PocketBase auth and rule logic for this use case, including unauthorized and cross-tenant checks."

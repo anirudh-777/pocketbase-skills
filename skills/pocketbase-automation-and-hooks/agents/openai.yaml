@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase Automation and Hooks"
+  short_description: "Build PocketBase hooks, realtime, and file lifecycle workflows"
+  default_prompt: "Implement PocketBase event-driven behavior for this task using hooks/realtime with idempotent side effects and observability."

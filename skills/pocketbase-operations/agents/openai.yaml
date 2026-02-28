@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase Operations"
+  short_description: "Run PocketBase backups, restore drills, and incident workflows"
+  default_prompt: "Operate PocketBase safely for this scenario with health checks, backup/restore validation, and incident-safe mitigations."

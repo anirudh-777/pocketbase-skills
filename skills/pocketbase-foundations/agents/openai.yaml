@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase Foundations"
+  short_description: "Set up PocketBase environments and baseline security"
+  default_prompt: "Set up this PocketBase environment with safe defaults, verify readiness, and prepare handoff to implementation skills."

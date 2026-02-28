@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase API and SDK"
+  short_description: "Build reliable PocketBase REST/SDK integration flows"
+  default_prompt: "Implement PocketBase API/SDK integration for this feature with pagination, filtering, error handling, and validation."

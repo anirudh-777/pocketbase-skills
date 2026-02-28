@@ -1,0 +1,4 @@
+interface:
+  display_name: "PocketBase Orchestrator"
+  short_description: "Coordinate end-to-end PocketBase work across setup, schema, auth, API, hooks, and operations"
+  default_prompt: "Route this PocketBase task through the right domain skills, execute each part safely, and summarize verification evidence."
