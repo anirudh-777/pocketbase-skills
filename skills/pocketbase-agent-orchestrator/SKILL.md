@@ -16,6 +16,72 @@ Use this skill when the request is broad or end-to-end and requires combining mu
 5. If event-driven behavior is needed, apply `pocketbase-automation-and-hooks`.
 6. Before completion for production-facing changes, apply `pocketbase-operations` checks.
 
+## Quick Actions
+Use these first for fast PocketBase management tasks.
+
+### Prerequisites
+Set credentials once:
+
+```bash
+export PB_URL="https://your-pocketbase.example.com"
+export PB_ADMIN_EMAIL="admin@example.com"
+export PB_ADMIN_PASSWORD="replace-me"
+```
+
+All commands below use:
+`skills/pocketbase-operations/scripts/pb_request.sh`
+
+### 1) Create collection
+
+```bash
+./skills/pocketbase-operations/scripts/pb_request.sh POST /api/collections '{
+  "name": "tasks",
+  "type": "base",
+  "schema": [
+    { "name": "title", "type": "text", "required": true },
+    { "name": "done", "type": "bool" }
+  ]
+}'
+```
+
+### 2) List/update records
+
+```bash
+# list records
+./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collections/tasks/records?page=1&perPage=20"
+
+# update a record
+./skills/pocketbase-operations/scripts/pb_request.sh PATCH /api/collections/tasks/records/RECORD_ID '{
+  "done": true
+}'
+```
+
+### 3) Fix rules
+
+```bash
+# find collection id by name
+COLL_ID=$(./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collections?filter=name%3D%22tasks%22" | sed -n 's/.*"id":"\([^"]*\)".*/\1/p' | head -n 1)
+
+# patch access rules
+./skills/pocketbase-operations/scripts/pb_request.sh PATCH "/api/collections/$COLL_ID" '{
+  "listRule": "@request.auth.id != \"\"",
+  "viewRule": "@request.auth.id != \"\"",
+  "createRule": "@request.auth.id != \"\"",
+  "updateRule": "@request.auth.id != \"\"",
+  "deleteRule": "@request.auth.id != \"\""
+}'
+```
+
+### 4) Backup/health check
+
+```bash
+# health check
+./skills/pocketbase-operations/scripts/pb_healthcheck.sh
+
+# backup (self-hosted PocketBase data dir example)
+tar -czf "pocketbase-backup-$(date +%Y%m%d-%H%M%S).tar.gz" /var/lib/pocketbase
+```
+
 ## Routing Heuristics
 - "Set up PocketBase" -> foundations
 - "Design collections/relations" -> data modeling

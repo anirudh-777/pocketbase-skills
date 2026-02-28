@@ -18,6 +18,35 @@ Open-source skill pack for AI coding agents to build and operate PocketBase apps
 2. Trigger the relevant skill by asking for a task in that domain.
 3. For end-to-end tasks, start with `pocketbase-agent-orchestrator`.
 
+## Quick actions
+
+Set credentials:
+
+```bash
+export PB_URL="https://your-pocketbase.example.com"
+export PB_ADMIN_EMAIL="admin@example.com"
+export PB_ADMIN_PASSWORD="replace-me"
+```
+
+Run immediate operations:
+
+```bash
+# create collection
+./skills/pocketbase-operations/scripts/pb_request.sh POST /api/collections '{"name":"tasks","type":"base","schema":[{"name":"title","type":"text","required":true},{"name":"done","type":"bool"}]}'
+
+# list records
+./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collections/tasks/records?page=1&perPage=20"
+
+# update record
+./skills/pocketbase-operations/scripts/pb_request.sh PATCH /api/collections/tasks/records/RECORD_ID '{"done":true}'
+
+# health check
+./skills/pocketbase-operations/scripts/pb_healthcheck.sh
+```
+
+For rule updates and backup flow, use the full Quick Actions block in:
+`skills/pocketbase-agent-orchestrator/SKILL.md`.
+
 ## Stack packs
 
 `pocketbase-api-and-sdk` includes practical references for:
