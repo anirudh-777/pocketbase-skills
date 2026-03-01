@@ -43,6 +43,9 @@ Run immediate operations:
 # health check
 ./skills/pocketbase-operations/scripts/pb_healthcheck.sh
 
+# API logs (filtered)
+./skills/pocketbase-operations/scripts/pb_api_logs.sh --status-gte 400 --match "candidates,applications,resumes" --limit 80
+
 # logs
 ./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
 ```

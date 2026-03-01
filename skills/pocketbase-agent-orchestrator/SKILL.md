@@ -78,6 +78,9 @@ COLL_ID=$(./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collect
 # health check
 ./skills/pocketbase-operations/scripts/pb_healthcheck.sh
 
+# API request logs (status >= 400, keyword match)
+./skills/pocketbase-operations/scripts/pb_api_logs.sh --status-gte 400 --match "candidates,applications,starred,resumes,candidate_activity_log,whatsapp_messages" --limit 80
+
 # logs (auto-detect: docker, systemd, file, or custom command)
 ./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
 
