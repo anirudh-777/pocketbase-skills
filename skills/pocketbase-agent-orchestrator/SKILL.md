@@ -1,26 +1,20 @@
 ---
 name: pocketbase-agent-orchestrator
-description: Use when a task spans multiple PocketBase domains and needs coordinated setup, schema, access, API, automation, and operations decisions in one workflow
+description: Use when managing PocketBase work end-to-end and you want one default skill for setup, schema, auth, API, logs, and operations
 ---
 
 # PocketBase Agent Orchestrator
 
 ## Overview
-Use this skill when the request is broad or end-to-end and requires combining multiple PocketBase skills.
+This is the default PocketBase skill. Start here for almost all requests.
 
-## Workflow
-1. Start with `pocketbase-foundations` for environment and safety baseline.
-2. If schema work is needed, apply `pocketbase-data-modeling`.
-3. If auth/rules are involved, apply `pocketbase-auth-and-access`.
-4. If app integration is needed, apply `pocketbase-api-and-sdk`.
-5. If event-driven behavior is needed, apply `pocketbase-automation-and-hooks`.
-6. Before completion for production-facing changes, apply `pocketbase-operations` checks.
+## Default Flow
+1. Run quick actions first for immediate operations.
+2. Use advanced domain skills only when a task is deep in one area.
+3. Before completion, run health and relevant log checks.
 
-## Quick Actions
-Use these first for fast PocketBase management tasks.
-
-### Prerequisites
-Set credentials once:
+## Credentials
+Set once before quick actions:
 
 ```bash
 export PB_URL="https://your-pocketbase.example.com"
@@ -28,8 +22,12 @@ export PB_ADMIN_EMAIL="admin@example.com"
 export PB_ADMIN_PASSWORD="replace-me"
 ```
 
-All commands below use:
-`skills/pocketbase-operations/scripts/pb_request.sh`
+Supported aliases in scripts:
+- URL: `PB_URL` or `NEXT_PUBLIC_POCKETBASE_URL`
+- identity: `PB_ADMIN_EMAIL` or `PB_SUPERUSER_EMAIL` or `POCKETBASE_SERVICE_EMAIL`
+- password: `PB_ADMIN_PASSWORD` or `PB_SUPERUSER_PASSWORD` or `POCKETBASE_SERVICE_PASSWORD`
+
+## Quick Actions
 
 ### 1) Create collection
 
@@ -47,22 +45,14 @@ All commands below use:
 ### 2) List/update records
 
 ```bash
-# list records
 ./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collections/tasks/records?page=1&perPage=20"
-
-# update a record
-./skills/pocketbase-operations/scripts/pb_request.sh PATCH /api/collections/tasks/records/RECORD_ID '{
-  "done": true
-}'
+./skills/pocketbase-operations/scripts/pb_request.sh PATCH /api/collections/tasks/records/RECORD_ID '{"done": true}'
 ```
 
 ### 3) Fix rules
 
 ```bash
-# find collection id by name
 COLL_ID=$(./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collections?filter=name%3D%22tasks%22" | sed -n 's/.*"id":"\([^"]*\)".*/\1/p' | head -n 1)
-
-# patch access rules
 ./skills/pocketbase-operations/scripts/pb_request.sh PATCH "/api/collections/$COLL_ID" '{
   "listRule": "@request.auth.id != \"\"",
   "viewRule": "@request.auth.id != \"\"",
@@ -72,33 +62,27 @@ COLL_ID=$(./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collect
 }'
 ```
 
-### 4) Backup/health/logs
+### 4) Health + API logs + backup
 
 ```bash
-# health check
 ./skills/pocketbase-operations/scripts/pb_healthcheck.sh
-
-# API request logs (status >= 400, keyword match)
 ./skills/pocketbase-operations/scripts/pb_api_logs.sh --status-gte 400 --match "candidates,applications,starred,resumes,candidate_activity_log,whatsapp_messages" --limit 80
 
-# logs (auto-detect: docker, systemd, file, or custom command)
-./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
-
-# follow logs live
-./skills/pocketbase-operations/scripts/pb_logs.sh --follow
-
-# backup (self-hosted PocketBase data dir example)
 tar -czf "pocketbase-backup-$(date +%Y%m%d-%H%M%S).tar.gz" /var/lib/pocketbase
 ```
 
-## Routing Heuristics
-- "Set up PocketBase" -> foundations
-- "Design collections/relations" -> data modeling
-- "Fix permissions/auth" -> auth and access
-- "Build SDK/API integration" -> api and sdk
-- "Realtime/hooks/files" -> automation and hooks
-- "Backup/restore/incident" -> operations
+## Optional Runtime Logs
+Use only when you need service/container/file runtime logs:
 
-## Completion Criteria
-- All touched domains include explicit verification steps.
-- Security and backup implications are called out for production changes.
+```bash
+./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
+./skills/pocketbase-operations/scripts/pb_logs.sh --follow
+```
+
+## Advanced Skills (Use Only When Needed)
+- `pocketbase-foundations`
+- `pocketbase-data-modeling`
+- `pocketbase-auth-and-access`
+- `pocketbase-api-and-sdk`
+- `pocketbase-automation-and-hooks`
+- `pocketbase-operations`

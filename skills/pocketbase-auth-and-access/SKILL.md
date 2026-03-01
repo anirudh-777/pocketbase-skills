@@ -1,53 +1,25 @@
 ---
 name: pocketbase-auth-and-access
-description: Use when implementing PocketBase authentication, authorization rules, ownership checks, and role-based access behavior across collections
+description: Use when you specifically need detailed PocketBase auth and authorization rule design beyond the orchestrator quick actions
 ---
 
-# PocketBase Auth and Access
+# PocketBase Auth and Access (Advanced)
 
 ## Overview
-Use this skill to implement secure auth flows and record-level access rules.
+Use this only for deeper auth/rule design. Default to `pocketbase-agent-orchestrator` for standard operations.
 
-## When to Use
-- User auth flows (email/password, OAuth providers)
-- Access rule design for list/view/create/update/delete
-- Ownership and team-based access patterns
-- Session/token lifecycle and secure client usage
+## Focus
+- Auth flows (email/password, OAuth)
+- Collection access rules (`list/view/create/update/delete`)
+- Ownership and tenant membership checks
 
-## Workflow
-1. Identify actor model:
-- Public user
-- Authenticated user
-- Elevated/internal actor
-
-2. Define collection rules by operation:
-- `listRule`, `viewRule`, `createRule`, `updateRule`, `deleteRule`
-- Enforce least privilege and explicit owner/team checks
-
-3. Map roles and claims:
-- Represent role in user or membership records
-- Evaluate role + resource ownership in rules
-
-4. Validate auth flows:
-- Sign up, sign in, refresh, sign out
-- Password reset and email verification
-- OAuth account linking behavior
-
-5. Threat checks:
-- Confirm private data cannot be listed via weak rules
-- Confirm cross-tenant access is blocked
-- Confirm server-side operations use secure service paths
-
-6. Handoff:
-- API integration with correct token handling -> `pocketbase-api-and-sdk`
-- Incident response for auth failures -> `pocketbase-operations`
+## Minimal Workflow
+1. Define actor types and trust boundaries.
+2. Set least-privilege rules per collection operation.
+3. Verify unauthorized and cross-tenant failures.
+4. Align with API integration and incident checks.
 
 ## References
 - [rule-patterns.md](references/rule-patterns.md)
 - [auth-flow-checklist.md](references/auth-flow-checklist.md)
 - [multitenancy-pattern.md](references/multitenancy-pattern.md)
-
-## Common Mistakes
-- Using permissive list rules and relying on client filtering
-- Encoding critical authorization only in frontend logic
-- Forgetting to test unauthorized and cross-tenant access cases

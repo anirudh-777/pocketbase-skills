@@ -1,21 +1,20 @@
 # PocketBase Skill Suite
 
-## Included Skills
-- `pocketbase-agent-orchestrator`: entry point for multi-domain PocketBase tasks.
-- `pocketbase-foundations`: setup, baseline security, environment preparation.
-- `pocketbase-data-modeling`: collections, relations, indexes, migrations.
-- `pocketbase-auth-and-access`: auth flows and access rules.
-- `pocketbase-api-and-sdk`: REST/SDK integration patterns.
-- `pocketbase-automation-and-hooks`: hooks, realtime, and file workflows.
-- `pocketbase-operations`: backups, incident response, and hardening.
+## Primary
+- `pocketbase-agent-orchestrator`: default entry point for nearly all PocketBase tasks.
 
-## Coverage Map
-- Setup and rollout: covered
-- Data design and schema evolution: covered
-- Authentication and authorization: covered
-- CRUD/query/integration: covered
-- Realtime/events/files: covered
-- Reliability/operations/security: covered
+## Advanced (Optional)
+- `pocketbase-foundations`
+- `pocketbase-data-modeling`
+- `pocketbase-auth-and-access`
+- `pocketbase-api-and-sdk`
+- `pocketbase-automation-and-hooks`
+- `pocketbase-operations`
 
-## Suggested Trigger
-For broad requests such as “build PocketBase app end-to-end,” start with `pocketbase-agent-orchestrator` and route into domain skills.
+## Core operational scripts
+- `skills/pocketbase-operations/scripts/pb_request.sh`
+- `skills/pocketbase-operations/scripts/pb_api_logs.sh`
+- `skills/pocketbase-operations/scripts/pb_healthcheck.sh`
+
+## Optional script
+- `skills/pocketbase-operations/scripts/pb_logs.sh` (runtime service/container/file logs)
