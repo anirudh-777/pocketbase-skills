@@ -42,9 +42,12 @@ Run immediate operations:
 
 # health check
 ./skills/pocketbase-operations/scripts/pb_healthcheck.sh
+
+# logs
+./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
 ```
 
-For rule updates and backup flow, use the full Quick Actions block in:
+For rule updates, live log follow, and backup flow, use the full Quick Actions block in:
 `skills/pocketbase-agent-orchestrator/SKILL.md`.
 
 ## Stack packs

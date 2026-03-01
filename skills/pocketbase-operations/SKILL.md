@@ -46,6 +46,7 @@ Use this skill for operating PocketBase reliably in staging and production.
 ## Scripts
 - `scripts/pb_healthcheck.sh`
 - `scripts/pb_request.sh`
+- `scripts/pb_logs.sh`
 
 ## References
 - [incident-runbook.md](references/incident-runbook.md)

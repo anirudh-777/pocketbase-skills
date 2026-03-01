@@ -72,11 +72,17 @@ COLL_ID=$(./skills/pocketbase-operations/scripts/pb_request.sh GET "/api/collect
 }'
 ```
 
-### 4) Backup/health check
+### 4) Backup/health/logs
 
 ```bash
 # health check
 ./skills/pocketbase-operations/scripts/pb_healthcheck.sh
+
+# logs (auto-detect: docker, systemd, file, or custom command)
+./skills/pocketbase-operations/scripts/pb_logs.sh --lines 300 --since 1h
+
+# follow logs live
+./skills/pocketbase-operations/scripts/pb_logs.sh --follow
 
 # backup (self-hosted PocketBase data dir example)
 tar -czf "pocketbase-backup-$(date +%Y%m%d-%H%M%S).tar.gz" /var/lib/pocketbase
