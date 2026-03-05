@@ -14,7 +14,14 @@ This is the default PocketBase skill. Start here for almost all requests.
 3. Before completion, run health and relevant log checks.
 
 ## Credentials
-Set once before quick actions:
+If credentials are missing, prompt the user to run secure setup first:
+
+```bash
+./skills/pocketbase-operations/scripts/pb_creds_setup.sh
+set -a; source .env.pocketbase.local; set +a
+```
+
+Manual setup (if needed):
 
 ```bash
 export PB_URL="https://your-pocketbase.example.com"
@@ -26,6 +33,11 @@ Supported aliases in scripts:
 - URL: `PB_URL` or `NEXT_PUBLIC_POCKETBASE_URL`
 - identity: `PB_ADMIN_EMAIL` or `PB_SUPERUSER_EMAIL` or `POCKETBASE_SERVICE_EMAIL`
 - password: `PB_ADMIN_PASSWORD` or `PB_SUPERUSER_PASSWORD` or `POCKETBASE_SERVICE_PASSWORD`
+
+Secure handling rules:
+- Never ask users to paste passwords into code files or committed docs.
+- Keep secrets in ignored local env files or a secret manager.
+- In production/CI, inject creds from platform secrets, not shell history.
 
 ## Quick Actions
 

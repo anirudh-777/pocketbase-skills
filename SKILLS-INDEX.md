@@ -12,6 +12,7 @@
 - `pocketbase-operations`
 
 ## Core operational scripts
+- `skills/pocketbase-operations/scripts/pb_creds_setup.sh`
 - `skills/pocketbase-operations/scripts/pb_request.sh`
 - `skills/pocketbase-operations/scripts/pb_api_logs.sh`
 - `skills/pocketbase-operations/scripts/pb_healthcheck.sh`

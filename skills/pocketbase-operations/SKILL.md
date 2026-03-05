@@ -9,6 +9,7 @@ description: Use when you specifically need advanced PocketBase operational runb
 Use this for deeper production operations. Default to `pocketbase-agent-orchestrator` for quick management actions.
 
 ## Core Scripts
+- `scripts/pb_creds_setup.sh`
 - `scripts/pb_request.sh`
 - `scripts/pb_api_logs.sh`
 - `scripts/pb_healthcheck.sh`

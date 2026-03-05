@@ -18,7 +18,14 @@ Use these only for deeper domain work:
 - `pocketbase-operations`
 
 ## Quick actions
-Set credentials:
+Set credentials securely (recommended):
+
+```bash
+./skills/pocketbase-operations/scripts/pb_creds_setup.sh
+set -a; source .env.pocketbase.local; set +a
+```
+
+Manual export (alternative):
 
 ```bash
 export PB_URL="https://your-pocketbase.example.com"
